@@ -21,11 +21,13 @@ final class Orchestra
         $this->fixer = $fixer;
     }
 
-    public static function run()
+    public static function run(): void
     {
         self::assert(new OrderedWithGetterAndSetterFirstFixer())
             ->before(new OrderedClassElementsFixer())
         ;
+
+        echo "\n";
     }
 
     /**
@@ -41,7 +43,7 @@ final class Orchestra
      */
     public function before(FixerInterface $other)
     {
-        echo sprintf("Run %s before %s\n", $this->fixer->getName(), $other->getName());
+        echo sprintf("\nRun %s before %s\n", $this->fixer->getName(), $other->getName());
 
         Assert::greaterThan(
             $this->fixer->getPriority(),
@@ -56,7 +58,7 @@ final class Orchestra
      */
     public function after(FixerInterface $other)
     {
-        echo sprintf("Run %s after %s\n", $this->fixer->getName(), $other->getName());
+        echo sprintf("\nRun %s after %s\n", $this->fixer->getName(), $other->getName());
 
         Assert::lessThan(
             $this->fixer->getPriority(),

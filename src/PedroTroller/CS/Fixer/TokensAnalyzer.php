@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PedroTroller\CS\Fixer;
 
 use Exception;
@@ -283,7 +285,7 @@ final class TokensAnalyzer
             $index = $this->tokens->getNextMeaningfulToken($index);
 
             if (null === $index) {
-                return null;
+                return;
             }
 
             switch (true) {
@@ -321,7 +323,7 @@ final class TokensAnalyzer
                 $i = $this->getClosingParenthesis($i);
 
                 if (null === $i) {
-                    return null;
+                    return;
                 }
 
                 continue;
@@ -349,7 +351,7 @@ final class TokensAnalyzer
                 $i = $this->getClosingBracket($i);
 
                 if (null === $i) {
-                    return null;
+                    return;
                 }
 
                 continue;
@@ -377,7 +379,7 @@ final class TokensAnalyzer
                 $i = $this->getClosingCurlyBracket($i);
 
                 if (null === $i) {
-                    return null;
+                    return;
                 }
 
                 continue;
@@ -410,7 +412,7 @@ final class TokensAnalyzer
         }
 
         foreach ($intervals as $interval) {
-            list($start, $end) = $interval;
+            [$start, $end] = $interval;
 
             if ($index >= $start && $index <= $end) {
                 return true;
